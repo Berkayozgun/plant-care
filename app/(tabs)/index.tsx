@@ -6,7 +6,6 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { ActivityIndicator, FlatList, Image, Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 
-// Bitki tipi
  type Plant = {
   id: string;
   name: string;
@@ -194,8 +193,8 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   plantImage: {
-    width: 32, // Adjust size as needed
-    height: 32, // Adjust size as needed
+    width: 32, 
+    height: 32, 
     resizeMode: 'contain',
   },
   cardContent: {

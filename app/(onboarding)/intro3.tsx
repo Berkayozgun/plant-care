@@ -1,9 +1,9 @@
+import { ScreenLayout } from '@/components/ScreenLayout'; // Import ScreenLayout
 import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import { Colors } from '@/constants/Colors';
 import { supabase } from '@/constants/supabase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Stack, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 
@@ -15,19 +15,16 @@ export default function Intro3Screen() {
     await AsyncStorage.setItem('onboardingCompleted', 'true');
     const { data: { session } } = await supabase.auth.getSession();
     if (session) {
-      router.replace('/(tabs)'); // If already logged in, go to main tabs
+      router.replace('/(tabs)'); 
     } else {
-      router.replace('/login'); // Otherwise, go to login
+      router.replace('/login'); 
     }
   };
 
   return (
-    <ThemedView style={styles.container}>
-      <Stack.Screen options={{ headerShown: false }} />
-
-      {/* Place for an image */}
+    <ScreenLayout headerShown={false}>
       <Image
-        source={{ uri: 'https://image.milimaj.com/i/milliyet/75/0x0/60af5a5d5542840210ddb8a6.jpg' }} // Placeholder image, you can replace this
+        source={{ uri: 'https://image.milimaj.com/i/milliyet/75/0x0/60af5a5d5542840210ddb8a6.jpg' }} 
         style={styles.image}
       />
       
@@ -40,7 +37,7 @@ export default function Intro3Screen() {
       >
         <ThemedText style={styles.buttonText}>Başlayın</ThemedText>
       </TouchableOpacity>
-    </ThemedView>
+    </ScreenLayout>
   );
 }
 
@@ -53,8 +50,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.light.background,
   },
   image: {
-    width: 200, // Adjust as needed
-    height: 200, // Adjust as needed
+    width: 200, 
+    height: 200, 
     resizeMode: 'contain',
     marginBottom: 30,
   },

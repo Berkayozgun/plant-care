@@ -1,3 +1,4 @@
+import { ScreenLayout } from '@/components/ScreenLayout';
 import { ThemedText } from '@/components/ThemedText';
 import { Colors } from '@/constants/Colors';
 import { supabase } from '@/constants/supabase';
@@ -66,7 +67,6 @@ export default function PlantDetailScreen() {
     router.replace('/');
   };
 
-  // Mobilde date picker onay
   const handleDateChange = (event: any, selectedDate?: Date) => {
     setShowDatePicker(false);
     if (selectedDate) {
@@ -94,74 +94,72 @@ export default function PlantDetailScreen() {
   }
 
   return (
-    <LinearGradient colors={["#f5f7fa", "#c3cfe2"]} style={styles.gradient}>
-      <View style={styles.outerContainer}>
-        <View style={styles.card}>
-          <ThemedText style={styles.title}>Bitki Detayı</ThemedText>
-          {editMode ? (
-            <>
-              <TextInput
-                style={styles.input}
-                placeholder="Bitki adı*"
-                placeholderTextColor="#C7C9D9"
-                value={name}
-                onChangeText={setName}
+    <ScreenLayout>
+      <View style={styles.card}>
+        <ThemedText style={styles.title}>Bitki Detayı</ThemedText>
+        {editMode ? (
+          <>
+            <TextInput
+              style={styles.input}
+              placeholder="Bitki adı*"
+              placeholderTextColor="#C7C9D9"
+              value={name}
+              onChangeText={setName}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Türü (opsiyonel)"
+              placeholderTextColor="#C7C9D9"
+              value={species}
+              onChangeText={setSpecies}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Sulama sıklığı (gün)"
+              placeholderTextColor="#C7C9D9"
+              value={wateringInterval}
+              onChangeText={setWateringInterval}
+              keyboardType="numeric"
+            />
+            <TouchableOpacity style={styles.dateInput} onPress={() => setShowDatePicker(true)}>
+              <ThemedText style={lastWatered ? styles.dateText : styles.datePlaceholder}>
+                {lastWatered ? `Son sulama: ${lastWatered}` : 'Son sulama tarihi (opsiyonel)'}
+              </ThemedText>
+            </TouchableOpacity>
+            {showDatePicker && (
+              <DateTimePicker
+                value={lastWatered ? new Date(lastWatered) : new Date()}
+                mode="date"
+                display={Platform.select({
+                  ios: 'spinner',
+                  android: 'default',
+                  default: 'default',
+                })}
+                onChange={handleDateChange}
+                maximumDate={new Date()}
               />
-              <TextInput
-                style={styles.input}
-                placeholder="Türü (opsiyonel)"
-                placeholderTextColor="#C7C9D9"
-                value={species}
-                onChangeText={setSpecies}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Sulama sıklığı (gün)"
-                placeholderTextColor="#C7C9D9"
-                value={wateringInterval}
-                onChangeText={setWateringInterval}
-                keyboardType="numeric"
-              />
-              <TouchableOpacity style={styles.dateInput} onPress={() => setShowDatePicker(true)}>
-                <ThemedText style={lastWatered ? styles.dateText : styles.datePlaceholder}>
-                  {lastWatered ? `Son sulama: ${lastWatered}` : 'Son sulama tarihi (opsiyonel)'}
-                </ThemedText>
-              </TouchableOpacity>
-              {showDatePicker && (
-                <DateTimePicker
-                  value={lastWatered ? new Date(lastWatered) : new Date()}
-                  mode="date"
-                  display={Platform.select({
-                    ios: 'spinner',
-                    android: 'default',
-                    default: 'default',
-                  })}
-                  onChange={handleDateChange}
-                  maximumDate={new Date()}
-                />
-              )}
-              {error && <ThemedText style={styles.errorText}>{error}</ThemedText>}
-              <TouchableOpacity style={styles.button} activeOpacity={0.85} onPress={handleSave}>
-                <ThemedText type="defaultSemiBold" style={styles.buttonText}>Kaydet</ThemedText>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.cancelButton} activeOpacity={0.7} onPress={() => setEditMode(false)}>
-                <ThemedText style={styles.cancelButtonText}>Vazgeç</ThemedText>
-              </TouchableOpacity>
-            </>
-          ) : (
-            <>
-              <ThemedText style={styles.detailText}><ThemedText style={styles.detailLabel}>Adı:</ThemedText> {plant.name}</ThemedText>
-              {plant.species ? <ThemedText style={styles.detailText}><ThemedText style={styles.detailLabel}>Türü:</ThemedText> {plant.species}</ThemedText> : null}
-              {plant.last_watered ? <ThemedText style={styles.detailText}><ThemedText style={styles.detailLabel}>Son sulama:</ThemedText> {plant.last_watered}</ThemedText> : null}
-              {plant.watering_interval ? <ThemedText style={styles.detailText}><ThemedText style={styles.detailLabel}>Sulama sıklığı:</ThemedText> Her {plant.watering_interval} günde bir</ThemedText> : null}
-              <TouchableOpacity style={styles.button} activeOpacity={0.85} onPress={() => setEditMode(true)}>
-                <ThemedText type="defaultSemiBold" style={styles.buttonText}>Düzenle</ThemedText>
-              </TouchableOpacity>
-            </>
-          )}
-        </View>
+            )}
+            {error && <ThemedText style={styles.errorText}>{error}</ThemedText>}
+            <TouchableOpacity style={styles.button} activeOpacity={0.85} onPress={handleSave}>
+              <ThemedText type="defaultSemiBold" style={styles.buttonText}>Kaydet</ThemedText>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.cancelButton} activeOpacity={0.7} onPress={() => setEditMode(false)}>
+              <ThemedText style={styles.cancelButtonText}>Vazgeç</ThemedText>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <ThemedText style={styles.detailText}><ThemedText style={styles.detailLabel}>Adı:</ThemedText> {plant.name}</ThemedText>
+            {plant.species ? <ThemedText style={styles.detailText}><ThemedText style={styles.detailLabel}>Türü:</ThemedText> {plant.species}</ThemedText> : null}
+            {plant.last_watered ? <ThemedText style={styles.detailText}><ThemedText style={styles.detailLabel}>Son sulama:</ThemedText> {plant.last_watered}</ThemedText> : null}
+            {plant.watering_interval ? <ThemedText style={styles.detailText}><ThemedText style={styles.detailLabel}>Sulama sıklığı:</ThemedText> Her {plant.watering_interval} günde bir</ThemedText> : null}
+            <TouchableOpacity style={styles.button} activeOpacity={0.85} onPress={() => setEditMode(true)}>
+              <ThemedText type="defaultSemiBold" style={styles.buttonText}>Düzenle</ThemedText>
+            </TouchableOpacity>
+          </>
+        )}
       </View>
-    </LinearGradient>
+    </ScreenLayout>
   );
 }
 
@@ -196,7 +194,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Colors.light.primary,
     letterSpacing: 0.5,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif',
+    fontFamily: Platform.select({
+      ios: 'System',
+      default: 'sans-serif',
+    }),
     marginBottom: 18,
     textAlign: 'center',
   },
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 8,
     elevation: 2,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif', // Adding inputFont styling directly here
+    fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif',
   },
   dateInput: {
     width: '100%',
@@ -265,7 +266,10 @@ const styles = StyleSheet.create({
   buttonText: {
     color: Colors.light.cardBackground,
     fontSize: 17,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif',
+    fontFamily: Platform.select({
+      ios: 'System',
+      default: 'sans-serif',
+    }),
   },
   cancelButton: {
     width: '100%',
@@ -281,7 +285,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     letterSpacing: 0.1,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif',
+    fontFamily: Platform.select({
+      ios: 'System',
+      default: 'sans-serif',
+    }),
   },
   errorText: {
     color: '#ff3b30',

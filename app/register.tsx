@@ -1,8 +1,8 @@
+import { ScreenLayout } from '@/components/ScreenLayout';
 import { ThemedText } from '@/components/ThemedText';
 import { Colors } from '@/constants/Colors';
 import { supabase } from '@/constants/supabase';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Stack, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ActivityIndicator, Alert, Platform, Pressable, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
@@ -43,8 +43,7 @@ export default function RegisterScreen() {
   };
 
   return (
-    <LinearGradient colors={["#f5f7fa", "#c3cfe2"]} style={styles.gradient}>
-      <Stack.Screen options={{ headerShown: false }} />
+    <ScreenLayout>
       <View style={styles.card}>
         <View style={styles.appNameContainer}>
           <ThemedText style={styles.appName}>Plant Care</ThemedText>
@@ -100,7 +99,7 @@ export default function RegisterScreen() {
           </Pressable>
         </View>
       </View>
-    </LinearGradient>
+    </ScreenLayout>
   );
 }
 

@@ -1,13 +1,8 @@
 import { Stack } from 'expo-router';
+import React from 'react';
 
 export default function OnboardingLayout() {
   return (
-    <Stack
-      screenOptions={{ headerShown: false }}
-    >
-      <Stack.Screen name="intro1" options={{ headerShown: false }} />
-      <Stack.Screen name="intro2" options={{ headerShown: false }} />
-      <Stack.Screen name="intro3" options={{ headerShown: false }} />
-    </Stack>
+    <Stack screenOptions={{ headerShown: false }} />
   );
 }

@@ -1,10 +1,10 @@
+import { ScreenLayout } from '@/components/ScreenLayout';
 import { ThemedText } from '@/components/ThemedText';
 import { Colors } from '@/constants/Colors';
 import { supabase } from '@/constants/supabase';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ActivityIndicator, Alert, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function AddPlantScreen() {
@@ -50,12 +50,10 @@ export default function AddPlantScreen() {
     router.replace('/');
   };
 
-  // Web için fallback
   const handleWebDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLastWatered(e.target.value || null);
   };
 
-  // Mobilde date picker onay
   const handleDateChange = (event: any, selectedDate?: Date) => {
     setShowDatePicker(false);
     if (selectedDate) {
@@ -65,7 +63,7 @@ export default function AddPlantScreen() {
   };
 
   return (
-    <LinearGradient colors={["#f5f7fa", "#c3cfe2"]} style={styles.gradient}>
+    <ScreenLayout>
       <View style={styles.card}>
         <ThemedText style={styles.title}>Bitki Ekle</ThemedText>
         {error && <ThemedText style={styles.errorText}>{error}</ThemedText>}
@@ -131,7 +129,7 @@ export default function AddPlantScreen() {
                 display={Platform.select({
                   ios: 'spinner',
                   android: 'default',
-                  default: 'default', // Fallback for web and other platforms
+                  default: 'default',
                 })}
                 onChange={handleDateChange}
                 maximumDate={new Date()}
@@ -147,16 +145,11 @@ export default function AddPlantScreen() {
           )}
         </TouchableOpacity>
       </View>
-    </LinearGradient>
+    </ScreenLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  gradient: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   card: {
     width: '90%',
     maxWidth: 380,
@@ -177,7 +170,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Colors.light.primary,
     letterSpacing: 0.5,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif',
+    fontFamily: Platform.select({
+      ios: 'System',
+      default: 'sans-serif',
+    }),
     marginBottom: 10,
   },
   input: {
@@ -232,7 +228,10 @@ const styles = StyleSheet.create({
   buttonText: {
     color: Colors.light.cardBackground,
     fontSize: 17,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif',
+    fontFamily: Platform.select({
+      ios: 'System',
+      default: 'sans-serif',
+    }),
   },
   errorText: {
     color: '#ff3b30',

@@ -1,9 +1,9 @@
+import { ScreenLayout } from '@/components/ScreenLayout';
 import { ThemedText } from '@/components/ThemedText';
 import { Colors } from '@/constants/Colors';
 import { supabase } from '@/constants/supabase';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
@@ -105,7 +105,7 @@ export default function EditPlantScreen() {
   };
 
   return (
-    <LinearGradient colors={["#f5f7fa", "#c3cfe2"]} style={styles.gradient}>
+    <ScreenLayout>
       <View style={styles.card}>
         <ThemedText style={styles.title}>Bitkiyi Düzenle</ThemedText>
         <TextInput
@@ -170,7 +170,7 @@ export default function EditPlantScreen() {
           )}
         </TouchableOpacity>
       </View>
-    </LinearGradient>
+    </ScreenLayout>
   );
 }
 
@@ -263,10 +263,17 @@ const styles = StyleSheet.create({
   buttonText: {
     color: Colors.light.cardBackground,
     fontSize: 17,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif',
+    fontFamily: Platform.select({
+      ios: 'System',
+      default: 'sans-serif',
+    }),
   },
   deleteButtonText: {
     color: Colors.light.cardBackground,
+    fontFamily: Platform.select({
+      ios: 'System',
+      default: 'sans-serif',
+    }),
   },
   errorText: {
     color: '#ff3b30',
