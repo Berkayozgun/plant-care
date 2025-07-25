@@ -1,50 +1,47 @@
-# Welcome to your Expo app 👋
+# Plant Care App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile application to help you keep your plants healthy and happy.
 
-## Get started
+## Features
 
-1. Install dependencies
+*   **Plant-Care:** Add your plants to the app and get personalized care recommendations.
+*   **Watering Reminders:** Get notified when it's time to water your plants.
+*   **Plant Diary:** Keep a log of your plant's progress with photos and notes.
+*   **Explore:** Discover new plants and learn how to care for them.
 
-   ```bash
-   npm install
-   ```
+## Tech Stack
 
-2. Start the app
+*   **Framework:** React Native with Expo
+*   **Language:** TypeScript
+*   **Routing:** Expo Router
+*   **Backend:** Supabase
+*   **Styling:** React Native Stylesheets
 
-   ```bash
-   npx expo start
-   ```
+## Getting Started
 
-In the output, you'll find options to open the app in a
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/plant-care-app.git
+    cd plant-care-app
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Set up Supabase:**
+    *   Create a new project on [Supabase](https://supabase.com/).
+    *   In the Supabase project, go to the SQL Editor and run the schema from `schema.sql` to create the necessary tables.
+    *   Get your Supabase URL and anon key from the API settings.
+    *   Create a `constants/supabase.ts` file and add your credentials:
+        ```typescript
+        import { createClient } from '@supabase/supabase-js';
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+        const supabaseUrl = 'YOUR_SUPABASE_URL';
+        const supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY';
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+        export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+        ```
+4.  **Run the app:**
+    ```bash
+    npm start
+    ```

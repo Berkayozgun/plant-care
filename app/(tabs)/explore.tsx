@@ -1,110 +1,171 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
+import { Platform, ScrollView, StyleSheet, View } from 'react-native';
 
-export default function TabTwoScreen() {
+const categories = [
+  {
+    title: 'Genel Bitki Bakımı',
+    icon: 'local-florist',
+    tips: [
+      'Bitkilerinizi düzenli aralıklarla kontrol edin ve yapraklarını temizleyin.',
+      'Bitkilerinizi aşırı sulamaktan kaçının, toprağın üstü kuruduğunda sulayın.',
+      'Bitkilerinizi zaman zaman döndürerek her tarafının eşit ışık almasını sağlayın.',
+    ],
+  },
+  {
+    title: 'Sulama',
+    icon: 'water-drop',
+    tips: [
+      'Her bitkinin su ihtiyacı farklıdır. Türüne göre sulama sıklığını belirleyin.',
+      'Sabah veya akşam saatlerinde sulama yapmak, suyun buharlaşmasını azaltır.',
+      'Sulama suyunun oda sıcaklığında olmasına dikkat edin.',
+      'Saksı altındaki tabağı fazla sudan arındırın, kök çürümesini önleyin.',
+    ],
+  },
+  {
+    title: 'Işık',
+    icon: 'wb-sunny',
+    tips: [
+      'Bitkilerinizi doğrudan güneş ışığına maruz bırakmayın, filtrelenmiş ışık idealdir.',
+      'Işık yetersizse bitkiniz cılız ve solgun görünebilir.',
+      'Kış aylarında bitkilerinizi pencereye daha yakın konumlandırabilirsiniz.',
+    ],
+  },
+  {
+    title: 'Toprak ve Saksı',
+    icon: 'grass',
+    tips: [
+      'Bitkinizin türüne uygun toprak seçin. Kaktüs ve sukulentler için geçirgen toprak tercih edin.',
+      'Saksı değişimini ilkbaharda yapın, kökleri fazla rahatsız etmeyin.',
+      'Saksı altında drenaj delikleri olmasına dikkat edin.',
+    ],
+  },
+  {
+    title: 'Gübreleme',
+    icon: 'science',
+    tips: [
+      'Bahar ve yaz aylarında bitkilerinize uygun sıvı gübre kullanın.',
+      'Aşırı gübrelemeden kaçının, kök yanıklarına sebep olabilir.',
+      'Kışın bitkiler genellikle dinlenme dönemindedir, gübrelemeye ara verin.',
+    ],
+  },
+  {
+    title: 'Hastalıklar ve Zararlılar',
+    icon: 'bug-report',
+    tips: [
+      'Yapraklarda lekeler, böcekler veya yapışkanlık fark ederseniz bitkinizi izole edin.',
+      'Doğal sabunlu su veya neem yağı ile zararlılara karşı mücadele edebilirsiniz.',
+      'Hastalık ilerlerse profesyonel destek alın.',
+    ],
+  },
+  {
+    title: 'Popüler Bitki Türleri',
+    icon: 'eco',
+    tips: [
+      'Areka Palmiyesi: Havadar ortam ve filtrelenmiş ışık sever.',
+      'Barış Çiçeği: Yarı gölge ve nemli toprak idealdir.',
+      'Kaktüs & Sukulent: Az su, bol ışık ister.',
+      'Salon Sarmaşığı: Yarı gölge, düzenli sulama ve nemli ortamı sever.',
+    ],
+  },
+];
+
+export default function ExploreScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <ScrollView contentContainerStyle={styles.container}>
+      <ThemedText style={styles.title}>Keşfet</ThemedText>
+      <ThemedText style={styles.subtitle}>Bitki Bakımı Hakkında Kategorize Bilgiler</ThemedText>
+      <View style={styles.categoriesList}>
+        {categories.map((cat, idx) => (
+          <View key={idx} style={[styles.categoryCard, { backgroundColor: idx % 2 === 0 ? '#F7FAFF' : '#FFF' }]}> 
+            <View style={styles.categoryHeader}>
+              <IconSymbol name={cat.icon as any} size={28} color="#4F8CFF" />
+              <ThemedText style={styles.categoryTitle}>{cat.title}</ThemedText>
+            </View>
+            <View style={styles.tipsList}>
+              {cat.tips.map((tip, tipIdx) => (
+                <View key={tipIdx} style={styles.tipRow}>
+                  <ThemedText style={styles.bullet}>•</ThemedText>
+                  <ThemedText style={styles.tipText}>{tip}</ThemedText>
+                </View>
+              ))}
+            </View>
+          </View>
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    alignItems: 'center',
+    paddingTop: 48,
+    paddingBottom: 32,
+    paddingHorizontal: 8,
+    backgroundColor: 'transparent',
   },
-  titleContainer: {
+  title: {
+    fontSize: 26,
+    fontWeight: '700',
+    color: '#4F8CFF',
+    letterSpacing: 0.5,
+    fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  subtitle: {
+    fontSize: 18,
+    color: '#7A7D8B',
+    fontWeight: '600',
+    marginBottom: 18,
+    textAlign: 'center',
+  },
+  categoriesList: {
+    width: '100%',
+    maxWidth: 420,
+    gap: 18,
+  },
+  categoryCard: {
+    borderRadius: 18,
+    padding: 22,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 2,
+    marginBottom: 8,
+    gap: 10,
+  },
+  categoryHeader: {
     flexDirection: 'row',
-    gap: 8,
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 8,
+  },
+  categoryTitle: {
+    fontSize: 19,
+    fontWeight: '700',
+    color: '#4F8CFF',
+  },
+  tipsList: {
+    gap: 4,
+  },
+  tipRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 2,
+  },
+  bullet: {
+    fontSize: 18,
+    color: '#4F8CFF',
+    marginRight: 6,
+    marginTop: 1,
+  },
+  tipText: {
+    fontSize: 15,
+    color: '#222',
+    flex: 1,
+    flexWrap: 'wrap',
   },
 });
