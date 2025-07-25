@@ -68,6 +68,12 @@ export default function AddPlantScreen() {
     <LinearGradient colors={["#f5f7fa", "#c3cfe2"]} style={styles.gradient}>
       <View style={styles.card}>
         <ThemedText style={styles.title}>Bitki Ekle</ThemedText>
+        {error && <ThemedText style={styles.errorText}>{error}</ThemedText>}
+        {error === 'Oturum bulunamadı. Lütfen tekrar giriş yapın.' && (
+          <TouchableOpacity onPress={() => router.replace('/login')} style={styles.loginButton}>
+            <ThemedText style={styles.loginButtonText}>Giriş Yap</ThemedText>
+          </TouchableOpacity>
+        )}
         <TextInput
           style={styles.input}
           placeholder="Bitki adı*"
@@ -133,7 +139,6 @@ export default function AddPlantScreen() {
             )}
           </>
         )}
-        {error && <ThemedText style={styles.errorText}>{error}</ThemedText>}
         <TouchableOpacity style={styles.button} activeOpacity={0.85} onPress={handleAddPlant} disabled={loading}>
           {loading ? (
             <ActivityIndicator color="#fff" />
@@ -235,5 +240,17 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 2,
     textAlign: 'center',
+  },
+  loginButton: {
+    marginTop: 10,
+    backgroundColor: Colors.light.primary,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  loginButtonText: {
+    color: Colors.light.cardBackground,
+    fontSize: 15,
+    fontWeight: 'bold',
   },
 }); 

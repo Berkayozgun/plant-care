@@ -1,10 +1,10 @@
 import { ThemedText } from '@/components/ThemedText';
+import { Colors } from '@/constants/Colors';
 import { supabase } from '@/constants/supabase';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ActivityIndicator, Alert, Platform, Pressable, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
-import { Colors } from '@/constants/Colors';
 
 export default function RegisterScreen() {
   const [name, setName] = useState('');
@@ -44,6 +44,7 @@ export default function RegisterScreen() {
 
   return (
     <LinearGradient colors={["#f5f7fa", "#c3cfe2"]} style={styles.gradient}>
+      <Stack.Screen options={{ headerShown: false }} />
       <View style={styles.card}>
         <View style={styles.appNameContainer}>
           <ThemedText style={styles.appName}>Plant Care</ThemedText>
@@ -134,7 +135,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: Colors.light.primary,
     letterSpacing: 0.5,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif',
+    fontFamily: Platform.select({
+      ios: 'System',
+      default: 'sans-serif',
+    }),
   },
   input: {
     width: '100%',

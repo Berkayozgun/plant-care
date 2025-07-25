@@ -1,4 +1,5 @@
 import { ThemedText } from '@/components/ThemedText';
+import { Colors } from '@/constants/Colors';
 import { supabase } from '@/constants/supabase';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFocusEffect, useRouter } from 'expo-router';
@@ -81,6 +82,9 @@ export default function HomeScreen() {
         ) : error ? (
           <View style={styles.emptyContainer}>
             <ThemedText style={styles.emptyText}>{error}</ThemedText>
+            <TouchableOpacity onPress={() => router.replace('/login')} style={styles.loginButton}>
+              <ThemedText style={styles.loginButtonText}>Giriş Yap</ThemedText>
+            </TouchableOpacity>
           </View>
         ) : plants.length === 0 ? (
           <View style={styles.emptyContainer}>
@@ -135,6 +139,18 @@ const styles = StyleSheet.create({
   emptySubText: {
     fontSize: 15,
     color: '#A0A3B0',
+  },
+  loginButton: {
+    marginTop: 20,
+    backgroundColor: Colors.light.primary,
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 10,
+  },
+  loginButtonText: {
+    color: Colors.light.cardBackground,
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   listContent: {
     gap: 12,

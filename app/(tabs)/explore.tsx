@@ -110,7 +110,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#4F8CFF',
     letterSpacing: 0.5,
-    fontFamily: Platform.OS === 'ios' ? 'System' : 'sans-serif',
+    fontFamily: Platform.select({
+      ios: 'System',
+      default: 'sans-serif',
+    }),
     marginBottom: 10,
     textAlign: 'center',
   },
